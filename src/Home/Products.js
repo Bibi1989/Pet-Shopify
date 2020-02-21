@@ -12,7 +12,7 @@ const Products = () => {
       </h1>
       <Container>
         {[1, 2, 3, 4].map(count => {
-          return <DogProducts />;
+          return <DogProducts key={count} />;
         })}
         {/* <CatProduct />
                 <BirdProducts /> */}
@@ -25,7 +25,7 @@ const Products = () => {
         </h1>
         <Container>
           {[1, 2, 3, 4].map(count => {
-            return <CatProducts />;
+            return <CatProducts key={count} />;
           })}
           {/* <CatProduct />
                 <BirdProducts /> */}

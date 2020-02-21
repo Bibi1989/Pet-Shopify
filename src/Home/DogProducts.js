@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
+import dog2 from '../images/dog2.jpg'
 
 const DogProducts = () => {
   return (
@@ -14,7 +15,7 @@ export default DogProducts;
 const DogCard = () => (
   <Card style={{ width: "100%" }}>
     <Image
-      src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg'
+      src={dog2}
       wrapped
       ui={false}
     />

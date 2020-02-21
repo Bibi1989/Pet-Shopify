@@ -5,6 +5,7 @@ import DogComponent from "./DogComponent";
 import { NavBar } from "./Home/NavBar";
 import FrontPage from "./Home/FrontPage";
 import Products from "./Home/Products";
+import Footer from './Home/Footer'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <NavBar />
         <FrontPage />
         <Products />
+        <Footer />
         <DogComponent />
       </DogProvider>
     </div>

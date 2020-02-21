@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Menu, Message } from "semantic-ui-react";
+import { Button, Menu } from "semantic-ui-react";
 
 import styled from "styled-components";
 import dog1 from "../images/dog1.jpg";
