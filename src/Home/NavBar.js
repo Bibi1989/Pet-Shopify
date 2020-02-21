@@ -7,9 +7,12 @@ export const NavBar = () => {
   const handleItemClick = (e, { name }) => setState({ activeItem: name });
 
   const { activeItem } = state;
+//   position: -webkit-sticky;
+// position: sticky;
+// top: 0;
 
   return (
-    <Menu style={{ padding: "0.5% 10%", background: "#f1f1f1" }} secondary>
+    <Menu style={sticky} secondary>
       <Menu.Item
         name='pet-shopify'
         size="max"
@@ -18,7 +21,7 @@ export const NavBar = () => {
         active={activeItem === "pet-shopify"}
         onClick={handleItemClick}
       />
-      <Menu.Item
+      {/* <Menu.Item
         name='messages'
         active={activeItem === "messages"}
         onClick={handleItemClick}
@@ -27,7 +30,7 @@ export const NavBar = () => {
         name='friends'
         active={activeItem === "friends"}
         onClick={handleItemClick}
-      />
+      /> */}
       <Menu.Menu position='right'>
         <Menu.Item>
           <Input icon='search' placeholder='Search Pets...' />
@@ -51,3 +54,12 @@ export const NavBar = () => {
     </Menu>
   );
 };
+
+const sticky = {
+  padding: "0.5% 10%", 
+  background: "#f1f1f1", 
+  position: '-webkit-sticky', 
+  position: 'sticky', 
+  top: '0', 
+  zIndex: '3' 
+}

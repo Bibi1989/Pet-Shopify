@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
+import styled from "styled-components";
 import cat2 from "../images/cat2.jpg";
 
 const CatProducts = () => {
@@ -23,13 +24,32 @@ const CatCard = () => (
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <span>
-        <span>&#8358;</span> <span>3,000</span>
-        <div style={{ color: "orangered" }}>
-          <span>&#8358;</span>{" "}
-          <span style={{ textDecoration: "line-through" }}>4,000</span>
+    <Cart>
+        <div>
+          <div>
+            <span>&#8358;</span> <span>3,000</span>
+          </div>
+          <div style={{ color: "orangered" }}>
+            <span>&#8358;</span>{" "}
+            <span style={{ textDecoration: "line-through" }}>4,000</span>
+          </div>
         </div>
-      </span>
+        <Button
+          content='Add To Cart'
+          size='mini'
+          icon='add'
+          labelPosition='left'
+        />
+      </Cart>
     </Card.Content>
   </Card>
 );
+
+const Cart = styled.i`
+  display: flex;
+  justify-content: space-between;
+  button {
+    background: teal !important;
+    color: #eee !important;
+  }
+`;
