@@ -4,7 +4,7 @@ import { Table, Container } from "semantic-ui-react";
 const CartComponent = () => {
   return (
     <Container>
-      {[1,2,3].map(() => (<Table style={{borderTop: "none", borderBottom: "none", borderLeft: "1px solid #ccc"}}>
+      {[1,2,3].map((a) => (<Table key={a} style={{borderTop: "none", borderBottom: "none", borderLeft: "1px solid #ccc"}}>
         <Table.Header style={{border: "none"}}>
           <Table.Row  style={{border: "none"}}>
             <Table.HeaderCell>Item</Table.HeaderCell>

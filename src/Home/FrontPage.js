@@ -11,7 +11,7 @@ const FrontPage = () => {
         <div className='child-one'>
           {/* <Category /> */}
           <Menu vertical style={{ width: "90%" }}>
-            <Menu.Item href='//google.com' target='_blank'>
+            <Menu.Item>
               <h1>Categories</h1>
             </Menu.Item>
             <Dropdown style={{ fontSize: "1.2em" }} item text='Dogs'>
