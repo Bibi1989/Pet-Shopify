@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Button } from "semantic-ui-react";
+import { Card, Image, Button, Rating } from "semantic-ui-react";
 import styled from "styled-components";
 import dog2 from "../images/dog2.jpg";
 
@@ -15,7 +15,7 @@ export default DogProducts;
 
 const DogCard = () => (
   <Card style={{ width: "100%" }}>
-    <Image src={dog2} wrapped ui={false} />
+    <Image src={dog2} wrapped ui={false} height='100%' />
     <Card.Content>
       {/* <Card.Header>Daniel</Card.Header>
       <Card.Meta>Joined in 2016</Card.Meta> */}
@@ -37,10 +37,11 @@ const DogCard = () => (
         <Button
           content='Add To Cart'
           size='mini'
-          icon='add'
+          icon='cart'
           labelPosition='left'
         />
       </Cart>
+      <RatingExampleStar />
     </Card.Content>
   </Card>
 );
@@ -53,3 +54,7 @@ const Cart = styled.i`
     color: #eee !important;
   }
 `;
+
+const RatingExampleStar = () => (
+  <Rating icon='star' defaultRating={3} maxRating={5} />
+)

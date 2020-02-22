@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Button } from "semantic-ui-react";
+import { Card, Button } from "semantic-ui-react";
 import styled from "styled-components";
 import cat2 from "../images/cat2.jpg";
 
@@ -15,7 +15,10 @@ export default CatProducts;
 
 const CatCard = () => (
   <Card style={{ width: "100%" }}>
-    <Image src={cat2} wrapped ui={false} />
+    {/* <Image src={cat2} wrapped ui={false} /> */}
+    <div style={{ width: "100%", height: "200px" }}>
+      <img src={cat2} alt="cat2" width='100%' height='100%' />
+    </div>
     <Card.Content>
       {/* <Card.Header>Daniel</Card.Header>
         <Card.Meta>Joined in 2016</Card.Meta> */}
@@ -24,7 +27,7 @@ const CatCard = () => (
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-    <Cart>
+      <Cart>
         <div>
           <div>
             <span>&#8358;</span> <span>3,000</span>
@@ -37,7 +40,7 @@ const CatCard = () => (
         <Button
           content='Add To Cart'
           size='mini'
-          icon='add'
+          icon='cart'
           labelPosition='left'
         />
       </Cart>

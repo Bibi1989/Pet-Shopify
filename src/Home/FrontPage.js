@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Menu } from "semantic-ui-react";
+import { Button, Menu, Dropdown } from "semantic-ui-react";
 
 import styled from "styled-components";
 import dog1 from "../images/dog1.jpg";
@@ -9,36 +9,51 @@ const FrontPage = () => {
     <div>
       <Parent>
         <div className='child-one'>
-          <Category />
-          {/* <ul>
-            <li>
-              <h1>Pet Categories</h1>
-            </li>
-            <li>
-              <i class='fas fa-dog'></i>
-              <span>Dogs</span>
-            </li>
-            <li>
-              <i class='fas fa-cat'></i>
-              <span>Cats</span>
-            </li>
-            <li>
-              <i class='fas fa-dove'></i>
-              <span>Birds</span>
-            </li>
-            <li>
-              <i class='fas fa-rabbit'></i>
-              <span>Rabbits</span>
-            </li>
-            <li>
-              <i class='fas fa-tortois'></i>
-              <span>Monkeys</span>
-            </li>
-            <li>
-              <i class='fas fa-tortois'></i>
-              <span>Squirels</span>
-            </li>
-          </ul> */}
+          {/* <Category /> */}
+          <Menu vertical style={{ width: "90%" }}>
+            <Menu.Item href='//google.com' target='_blank'>
+              <h1>Categories</h1>
+            </Menu.Item>
+            <Dropdown style={{ fontSize: "1.2em" }} item text='Dogs'>
+              <Dropdown.Menu style={{ width: "130%" }}>
+                <Dropdown.Item>German Shepherd</Dropdown.Item>
+                <Dropdown.Item>Bulldog</Dropdown.Item>
+                <Dropdown.Item>Mountain Dog</Dropdown.Item>
+                <Dropdown.Item>Terrier</Dropdown.Item>
+                <Dropdown.Item>Chihuahua</Dropdown.Item>
+                <Dropdown.Item>Pitbull</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown style={{ fontSize: "1.2em" }} item text='Cats'>
+              <Dropdown.Menu style={{ width: "130%" }}>
+                <Dropdown.Item>American Bobtail Cat</Dropdown.Item>
+                <Dropdown.Item>American Shorthair Cat</Dropdown.Item>
+                <Dropdown.Item>Birman Cat</Dropdown.Item>
+                <Dropdown.Item>Manx Cat</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown style={{ fontSize: "1.2em" }} item text='Birds'>
+              <Dropdown.Menu style={{ width: "130%" }}>
+                <Dropdown.Item>English</Dropdown.Item>
+                <Dropdown.Item>Pidgin</Dropdown.Item>
+                <Dropdown.Item>Spanish</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown style={{ fontSize: "1.2em" }} item text='Rabbits'>
+              <Dropdown.Menu style={{ width: "130%" }}>
+                <Dropdown.Item>English</Dropdown.Item>
+                <Dropdown.Item>Pidgin</Dropdown.Item>
+                <Dropdown.Item>Spanish</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown style={{ fontSize: "1.2em" }} item text='Monkeys'>
+              <Dropdown.Menu style={{ width: "130%" }}>
+                <Dropdown.Item>English</Dropdown.Item>
+                <Dropdown.Item>Pidgin</Dropdown.Item>
+                <Dropdown.Item>Spanish</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu>
         </div>
         <div className='child-two'>
           <div className='overlay'></div>
@@ -103,23 +118,35 @@ const Parent = styled.div`
   }
 `;
 
-const Category = () => {
-  return (
-    <div style={{width: "100%"}}>
-      <Menu vertical style={{width: "90%"}}>
-        <Menu.Item href='//google.com' target='_blank'>
-          <h1>Categories</h1>
-        </Menu.Item>
-        <Menu.Item link>Dogs</Menu.Item>
-        <Menu.Item link>Cats</Menu.Item>
-        <Menu.Item link>Birds</Menu.Item>
-        <Menu.Item link>Rabbits</Menu.Item>
-        <Menu.Item link>Monkeys</Menu.Item>
-      </Menu>
-
-      {/* {message && <Message content={message} />} */}
-    </div>
-  );
-};
+//  const Category = () => {
+//    return (
+//      <div style={{ width: "100%" }}>
+//       <Menu vertical style={{ width: "90%" }}>
+//         <Menu.Item href='//google.com' target='_blank'>
+//           <h1>Categories</h1>
+//         </Menu.Item>
+//         <Menu.Item link>
+//           <Dropdown style={{ fontSize: "1.2em" }} item text={state.name}>
+//             <Dropdown.Menu>
+//               <Dropdown.Item onClick={() => handleClick("English")}>
+//                 English
+//               </Dropdown.Item>
+//               <Dropdown.Item onClick={() => handleClick("Pidgin")}>
+//                 Pidgin
+//               </Dropdown.Item>
+//               <Dropdown.Item onClick={() => handleClick("Spanish")}>
+//                 Spanish
+//               </Dropdown.Item>
+//             </Dropdown.Menu>
+//           </Dropdown>
+//         </Menu.Item>
+//         <Menu.Item link>Cats</Menu.Item>
+//         <Menu.Item link>Birds</Menu.Item>
+//         <Menu.Item link>Rabbits</Menu.Item>
+//         <Menu.Item link>Monkeys</Menu.Item>
+//       </Menu>
+//      </div>
+//    );
+//  };
 
 export default FrontPage;

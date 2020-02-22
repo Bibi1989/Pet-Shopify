@@ -2,21 +2,23 @@ import React from "react";
 import DogProducts from "./DogProducts";
 import styled from "styled-components";
 import CatProducts from "./CatProducts";
+import SinglePet from "./SinglePet";
+import CartComponent from "./CartComponent";
 
 const Products = () => {
   return (
     <>
-    <div style={line}>
-      <h1 style={{ textAlign: "center", fontSize: "3.2rem", color: "#777" }}>
-        Dogs Categories
-      </h1>
-      <Container>
-        {[1, 2, 3, 4].map(count => {
-          return <DogProducts key={count} />;
-        })}
-        {/* <CatProduct />
+      <div style={line}>
+        <h1 style={{ textAlign: "center", fontSize: "3.2rem", color: "#777" }}>
+          Dogs Categories
+        </h1>
+        <Container>
+          {[1, 2, 3, 4].map(count => {
+            return <DogProducts key={count} />;
+          })}
+          {/* <CatProduct />
                 <BirdProducts /> */}
-      </Container>
+        </Container>
       </div>
 
       <div style={line}>
@@ -30,6 +32,8 @@ const Products = () => {
           {/* <CatProduct />
                 <BirdProducts /> */}
         </Container>
+        <SinglePet />
+        <CartComponent />
       </div>
     </>
   );
@@ -37,8 +41,7 @@ const Products = () => {
 
 const line = {
   borderTop: "1px solid #999",
-//   borderBottom: "1px solid #999",
-  padding: "2% 0",
+  padding: "2% 0"
 };
 
 const Container = styled.div`
@@ -46,6 +49,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 4%;
+  position: relative;
 `;
 
 export default Products;

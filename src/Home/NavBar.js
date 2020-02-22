@@ -1,36 +1,51 @@
 import React, { useState } from "react";
-import { Input, Menu, Icon, Button } from "semantic-ui-react";
+import {
+  Input,
+  Menu,
+  Icon,
+  Button,
+  Dropdown,
+  Transition
+} from "semantic-ui-react";
 
 export const NavBar = () => {
-  const [state, setState] = useState({ activeItem: "home" });
+  const [state, setState] = useState({ activeItem: "home", name: "Language", visible: true });
 
-  const handleItemClick = (e, { name }) => setState({ activeItem: name });
+  const handleItemClick = (_, { name }) => setState({ activeItem: name });
+  const handleClick = names => setState({ name: names });
 
   const { activeItem } = state;
-//   position: -webkit-sticky;
-// position: sticky;
-// top: 0;
 
   return (
-    <Menu style={sticky} secondary>
+    <Menu pointing style={sticky} secondary>
       <Menu.Item
         name='pet-shopify'
-        size="max"
+        size='max'
         color='teal'
-        as='h3'
+        as='h2'
         active={activeItem === "pet-shopify"}
         onClick={handleItemClick}
+        style={{ color: "teal", fontSize: "1.3rem" }}
       />
-      {/* <Menu.Item
-        name='messages'
-        active={activeItem === "messages"}
-        onClick={handleItemClick}
-      />
-      <Menu.Item
-        name='friends'
-        active={activeItem === "friends"}
-        onClick={handleItemClick}
-      /> */}
+      <Transition visible={state.visible} animation='scale' duration={500}>
+        <Dropdown
+          style={{ fontSize: "1.2em", color: "teal" }}
+          item
+          text={state.name}
+        >
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => handleClick("English")}>
+              English
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick("Pidgin")}>
+              Pidgin
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick("Spanish")}>
+              Spanish
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Transition>
       <Menu.Menu position='right'>
         <Menu.Item>
           <Input icon='search' placeholder='Search Pets...' />
@@ -40,7 +55,8 @@ export const NavBar = () => {
           <span style={{ padding: "0 5px" }}>My Wishlist</span>
         </Button>
         <Button color='white' icon>
-          <Icon name='cart' size='big' color='teal' />
+          <Icon name='cart' size='big' color='teal' />{" "}
+          <sup style={{ fontSize: "1rem", color: "orangered" }}>0</sup>
         </Button>
         <Button style={{ margin: "0 10px" }} icon>
           <Icon name='user' size='max' color='teal' />
@@ -56,10 +72,11 @@ export const NavBar = () => {
 };
 
 const sticky = {
-  padding: "0.5% 10%", 
-  background: "#f1f1f1", 
-  position: '-webkit-sticky', 
-  position: 'sticky', 
-  top: '0', 
-  zIndex: '3' 
-}
+  padding: "0.5% 10%",
+  background: "#f1f1f1",
+  position: "-webkit-sticky",
+  // eslint-disable-next-line
+  position: "sticky",
+  top: "0",
+  zIndex: "3"
+};
