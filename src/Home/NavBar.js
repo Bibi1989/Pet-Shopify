@@ -78,5 +78,5 @@ const sticky = {
   // eslint-disable-next-line
   position: "sticky",
   top: "0",
-  zIndex: "3"
+  zIndex: "10"
 };

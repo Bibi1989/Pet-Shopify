@@ -1,11 +1,13 @@
-import React from "react";
-import DogProducts from "./DogProducts";
+import React, { useContext } from "react";
+import DogProducts from "./SingleComponents/DogProducts";
 import styled from "styled-components";
-import CatProducts from "./CatProducts";
-import SinglePet from "./SinglePet";
-import CartComponent from "./CartComponent";
+import CatProducts from "./SingleComponents/CatProducts";
+import { DogContext } from "../context/dog-context/DogProvider";
+import MonkeyProduct from "./SingleComponents/MonkeyProducts";
+import BirdProduct from "./SingleComponents/BirdProducts";
 
 const Products = () => {
+  const { pets } = useContext(DogContext);
   return (
     <>
       <div style={line}>
@@ -13,11 +15,11 @@ const Products = () => {
           Dogs Categories
         </h1>
         <Container>
-          {[1, 2, 3, 4].map(count => {
-            return <DogProducts key={count} />;
+          {pets.map(pet => {
+            return (
+              pet.name === "dogs" && <DogProducts key={pet._id} pet={pet} />
+            );
           })}
-          {/* <CatProduct />
-                <BirdProducts /> */}
         </Container>
       </div>
 
@@ -26,14 +28,40 @@ const Products = () => {
           Cats Categories
         </h1>
         <Container>
-          {[1, 2, 3, 4].map(count => {
-            return <CatProducts key={count} />;
+          {pets.map(pet => {
+            return (
+              pet.name === "cats" && <CatProducts key={pet._id} pet={pet} />
+            );
           })}
-          {/* <CatProduct />
-                <BirdProducts /> */}
         </Container>
-        <SinglePet />
-        <CartComponent />
+      </div>
+
+      <div style={line}>
+        <h1 style={{ textAlign: "center", fontSize: "3.2rem", color: "#777" }}>
+          Monkeys Categories
+        </h1>
+        <Container>
+          {pets.map(pet => {
+            return (
+              pet.name === "monkeys" && (
+                <MonkeyProduct key={pet._id} pet={pet} />
+              )
+            );
+          })}
+        </Container>
+      </div>
+
+      <div style={line}>
+        <h1 style={{ textAlign: "center", fontSize: "3.2rem", color: "#777" }}>
+          Birds Categories
+        </h1>
+        <Container>
+          {pets.map(pet => {
+            return (
+              pet.name === "birds" && <BirdProduct key={pet._id} pet={pet} />
+            );
+          })}
+        </Container>
       </div>
     </>
   );
@@ -45,11 +73,16 @@ const line = {
 };
 
 const Container = styled.div`
-  padding: 2% 10%;
+  margin: 2% 10%;
+  padding: 1% 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 4%;
+  overflow-x: auto;
   position: relative;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Products;

@@ -1,43 +1,73 @@
 import React, { createContext, useReducer, useEffect } from "react";
+import axios from "axios";
 import reducer from "./reducer";
-import { FETCH_DOG, ADD_DOG } from "./types";
-
-const dogs = [
-  { id: 1, name: "bingo", price: "#2000" },
-  { id: 2, name: "bulldog", price: "#3000" },
-  { id: 3, name: "german shephard", price: "#4000" },
-  { id: 4, name: "Elephant", price: "#5000" },
-  { id: 5, name: "Sheep", price: "#6000" }
-];
+import { FETCH_PET, ADD_DOG, SINGLE_PET, ERRORS } from "./types";
 
 const initialState = {
-  animals: []
+  animals: [],
+  view_pet: [],
+  cats: [],
+  monkeys: [],
+  rabbits: []
 };
 
 export const DogContext = createContext();
 
 export const DogProvider = ({ children }) => {
+  const url = `http://localhost:3001/animals`;
   const [state, dispatch] = useReducer(reducer, initialState);
-  const fetchDog = () => {
-    dispatch({ type: FETCH_DOG, payload: dogs });
+
+  // all pets
+  const fetchPets = async () => {
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          "content-type": "application/json",
+          "x-auth":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNTFhMWJhZjUzYmRiMzdhYzdkMTQ2OCIsInBob25lIjoiMTIzNDU2Nzg3ODkiLCJlbWFpbCI6ImJiQGdtYWlsLmNvbSIsIm5hbWUiOiJiYiIsImlhdCI6MTU4MjQwODEyMn0.Qkn5kiU9h22znDv1JvylGT07jM0WoiQ0TGvqH9x99Yk"
+        }
+      });
+      dispatch({ type: FETCH_PET, payload: response.data.data });
+    } catch (error) {}
+  };
+
+  const fetchSinglePet = async id => {
+    try {
+      const response = await axios.get(`http://localhost:3001/animals/${id}`, {
+        headers: {
+          "content-type": "application/json",
+          "x-auth":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNTFhMWJhZjUzYmRiMzdhYzdkMTQ2OCIsInBob25lIjoiMTIzNDU2Nzg3ODkiLCJlbWFpbCI6ImJiQGdtYWlsLmNvbSIsIm5hbWUiOiJiYiIsImlhdCI6MTU4MjQwODEyMn0.Qkn5kiU9h22znDv1JvylGT07jM0WoiQ0TGvqH9x99Yk"
+        }
+      });
+      dispatch({ type: SINGLE_PET, payload: response.data.data });
+    } catch (error) {
+      dispatch({ type: ERRORS, payload: error });
+    }
   };
 
   useEffect(() => {
-    fetchDog();
-  }, []);
+    fetchPets();
+    // eslint-disable-next-line
+  }, [url]);
 
   const addDog = body => {
     dispatch({
       type: ADD_DOG,
-      payload: { id: state.animals.length + 1, ...body }
+      payload: { id: state.pets.length + 1, ...body }
     });
   };
+
+  console.log(state.view_pet);
+  console.log(state.animals);
 
   return (
     <DogContext.Provider
       value={{
-        dogs: state.animals,
-        fetch: fetchDog,
+        pets: state.animals,
+        get_single_pet: fetchSinglePet,
+        view_pet: state.view_pet,
+        fetch: fetchPets,
         add: addDog
       }}
     >

@@ -2,12 +2,12 @@ import React, { useContext, useState } from "react";
 import { DogContext } from "./context/dog-context/DogProvider";
 
 const DogComponent = () => {
-  const { dogs, fetch, add } = useContext(DogContext);
+  const { pets, fetch, add } = useContext(DogContext);
   const [values, setValues] = useState({
     name: "",
     price: ""
   });
-  console.log(dogs);
+  console.log(pets);
   const handleInput = ({ target }) => {
     const { value, name } = target;
     setValues({
@@ -37,7 +37,7 @@ const DogComponent = () => {
           placeholder='Price'
           onChange={handleInput}
         />
-        <button type="submit">Add</button>
+        <button type='submit'>Add</button>
       </form>
     </div>
   );

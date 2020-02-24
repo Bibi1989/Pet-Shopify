@@ -1,35 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Menu, Button, Rating, Pagination } from "semantic-ui-react";
-import cat1 from "../images/cat1.jpg";
+import { DogContext } from "../context/dog-context/DogProvider";
+import { useParams } from "react-router-dom";
 
 const SinglePet = () => {
+  const { view_pet, get_single_pet } = useContext(DogContext);
+  const { id } = useParams();
   const [count, setCount] = useState(0);
   const handleIncrement = () => {
     setCount(count + 1);
   };
+  useEffect(() => {
+    get_single_pet(id);
+  }, [id, get_single_pet]);
   return (
     <SingleParent>
       <div className='first'>
         <div className='first-sub-child'>
-          <img src={cat1} alt={cat1} width='70%' height='100%' />
+          <img
+            src={view_pet.image_url}
+            alt={view_pet.image_url}
+            width='70%'
+            height='50%'
+          />
         </div>
         <div className='second-sub-child'>
-          <h2>
-            American Bobtail Cat, It is most notable for its stubby "bobbed"
-            tail about one-third to one-half the length of a normal cat's tail
-          </h2>
-          <p className='brand'>
-            Brand: Samsung | Similar products from Samsung
-          </p>
+          <h2>{view_pet.name}</h2>
+          <h3>{view_pet.breed}</h3>
+          <p className='brand'>{view_pet.description}</p>
           <RatingExampleStar />
           <div className='price'>
             <div>
-              <span>&#8358;</span> <span>3,000</span>
+              <span>&#8358;</span> <span>{view_pet.price}</span>
             </div>
             <div style={{ color: "orangered" }}>
               <span>&#8358;</span>{" "}
-              <span style={{ textDecoration: "line-through" }}>4,000</span>
+              <span style={{ textDecoration: "line-through" }}>
+                {parseInt(view_pet.price) + 1000}
+              </span>
             </div>
             <Button
               content='Add To Cart'
@@ -60,7 +69,7 @@ const SingleParent = styled.div`
   height: 70vh;
   .first {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 50% 50%;
     .first-sub-child {
       /* background: yellow; */
       padding: 5%;

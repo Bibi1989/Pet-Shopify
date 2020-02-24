@@ -1,10 +1,17 @@
 import React from "react";
 import { Button, Menu, Dropdown } from "semantic-ui-react";
-
+import { Slider } from "infinite-react-carousel";
 import styled from "styled-components";
-import dog1 from "../images/dog1.jpg";
+import dog1 from "../images/shepherd1.jpg";
+import dog2 from "../images/dog2.jpg";
+import cat2 from "../images/cat2.jpg";
+import monkey1 from "../images/monkey1.jpg";
 
 const FrontPage = () => {
+  const settings = {
+    autoplay: true,
+    autoplaySpeed: 2500
+  };
   return (
     <div>
       <Parent>
@@ -55,15 +62,32 @@ const FrontPage = () => {
             </Dropdown>
           </Menu>
         </div>
+        {/* <div> */}
         <div className='child-two'>
-          <div className='overlay'></div>
-          <h1>Shop For Your Favorite Pet</h1>
-          <div className='shop'>
-            <Button>
-              <span>Shop Now</span>
-            </Button>
+          <div className='overlay'>
+            <h1>Shop For Your Favorite Pet</h1>
+            <div className='shop'>
+              <Button>
+                <span>Shop Now</span>
+              </Button>
+            </div>
           </div>
+          <Slider style={{ position: "relative", height: '100%' }} {...settings}>
+            <div>
+              <img src={dog1} alt={dog1} width='100%' height='509vh' />
+            </div>
+            <div>
+              <img src={dog2} alt={dog2} width='100%' height='509vh' />
+            </div>
+            <div>
+              <img src={cat2} alt={cat2} width='100%' height='509vh' />
+            </div>
+            <div>
+              <img src={monkey1} alt={monkey1} width='100%' height='509vh' />
+            </div>
+          </Slider>
         </div>
+        {/* </div> */}
       </Parent>
     </div>
   );
@@ -72,7 +96,7 @@ const FrontPage = () => {
 const Parent = styled.div`
   display: grid;
   grid-template-columns: 20% 80%;
-  padding: 1% 10%;
+  padding: 0 10%;
   height: 70vh;
   .child-one {
     ul {
@@ -82,30 +106,25 @@ const Parent = styled.div`
         color: #eee;
         border-bottom: 1px solid #bbb;
         padding: 5% 0;
-        font-size: 1.5em;
+        font-size: 1.3em;
         cursor: pointer;
         .fas {
           color: teal;
-          font-size: 2rem;
+          font-size: 1.5rem;
           padding: 0 1.5rem;
         }
       }
     }
   }
   .child-two {
-    background: url(${dog1});
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: teal;
+    color: orangered;
     position: relative;
     .overlay {
-      background: #222;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #222222a9;
       position: absolute;
       top: 0;
       left: 0;
@@ -113,7 +132,10 @@ const Parent = styled.div`
       bottom: 0;
       height: 100%;
       width: 100%;
-      opacity: 0.4;
+      z-index: 3;
+    }
+    h1 {
+      font-size: 3rem;
     }
   }
 `;
