@@ -10,33 +10,14 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import { cities } from "../state-cities";
-
-const dogtype = [
-  "German Shepherd",
-  "Bulldog",
-  "Mountain Dog",
-  "Terrier",
-  "Chihuahua",
-  "Pitbull"
-];
-const cattype = [
-  "American Bobtail Cat",
-  "American Shorthair Cat",
-  "Birman Cat",
-  "Manx Cat"
-];
-const birdtype = [
-  "Falcon Bird",
-  "Indian Peacock",
-  "Parrot",
-  "Dove",
-  "Ostrich Bird",
-  "Other Bird"
-];
-const monkeytype = ["Africa Monkey", "Indian Monkey", "Baboon", "Chimpazee"];
-const rabbittype = ["Squirel", "Rabbit"];
-
-const animals = ["Dogs", "Cats", "Birds", "Rabbits", "Monkeys"];
+import {
+  dogtype,
+  cattype,
+  birdtype,
+  rabbittype,
+  monkeytype,
+  animals
+} from "../arrayOfPets";
 
 const AddPet = () => {
   const [name, setPet] = useState("");

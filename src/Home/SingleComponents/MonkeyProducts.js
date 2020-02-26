@@ -1,29 +1,31 @@
 import React, { useContext } from "react";
-import { Card } from "semantic-ui-react";
+import { Card, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import {
-  RatingComponent,
-  ButtonComponent
+  RatingComponent
+  // ButtonComponent
 } from "../../UiComponets/UiComponents";
 import { DogContext } from "../../context/dog-context/DogProvider";
 import { Image, Cart, Price } from "../../StyleComponent";
 import moment from "moment";
-import { Link } from "react-router-dom";
 
 const MonkeyProduct = ({ pet }) => {
-  const { get_single_pet } = useContext(DogContext);
-  const handleView = id => {
-    get_single_pet(id);
+  const { addToCart, getCart } = useContext(DogContext);
+  const { id } = JSON.parse(localStorage.getItem("users"));
+  const handleCart = pet => {
+    addToCart(pet, id);
+    getCart(id);
   };
   return (
     <div>
-      <CatCard pet={pet} handleView={handleView} />
+      <DogCard pet={pet} handleCart={handleCart} />
     </div>
   );
 };
 
 export default MonkeyProduct;
 
-const CatCard = ({ pet }) => (
+const DogCard = ({ pet, handleCart }) => (
   <Card style={{ width: "300px" }}>
     <Image style={{ width: "100%", height: "200px", position: "relative" }}>
       <img src={pet.image_url} alt='cat2' width='100%' height='100%' />
@@ -33,7 +35,7 @@ const CatCard = ({ pet }) => (
         </Link>
       </div>
     </Image>
-    <Card.Content>
+    <Card.Content style={{ height: '150px', overflowY: 'auto'}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Card.Header style={{ color: "teal" }}>
           {pet.name.toUpperCase()}
@@ -69,9 +71,14 @@ const CatCard = ({ pet }) => (
       </Price>
       <Cart>
         <RatingComponent />
-        <ButtonComponent />
+        <Button
+          content='Add To Cart'
+          size='mini'
+          icon='cart'
+          labelPosition='left'
+          onClick={() => handleCart(pet)}
+        />
       </Cart>
     </Card.Content>
   </Card>
 );
-

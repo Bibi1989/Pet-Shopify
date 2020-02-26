@@ -1,5 +1,14 @@
 //
-import { FETCH_PET, ADD_DOG, SINGLE_PET } from "./types";
+import {
+  FETCH_PET,
+  ADD_DOG,
+  SINGLE_PET,
+  GET_CART,
+  HANDLE_PET_FILTER,
+  HANDLE_BREED_FILTER,
+  SEARCH,
+  DELETE_CART
+} from "./types";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -8,8 +17,12 @@ const reducer = (state, action) => {
         ...state,
         animals: action.payload
       };
+    case GET_CART:
+      return {
+        ...state,
+        cart: action.payload
+      };
     case SINGLE_PET:
-      console.log(action.payload)
       return {
         ...state,
         view_pet: action.payload
@@ -17,7 +30,27 @@ const reducer = (state, action) => {
     case ADD_DOG:
       return {
         ...state,
-        animals: [action.payload, ...state.animals]
+        add_cart: [action.payload, ...state.cart]
+      };
+    case HANDLE_PET_FILTER:
+      return {
+        ...state,
+        dogs: action.payload
+      };
+    case HANDLE_BREED_FILTER:
+      return {
+        ...state,
+        breeds: action.payload
+      };
+    case SEARCH:
+      return {
+        ...state,
+        search_pets: action.payload
+      };
+    case DELETE_CART:
+      return {
+        ...state,
+        delete_msg: action.payload
       };
     default:
       return state;

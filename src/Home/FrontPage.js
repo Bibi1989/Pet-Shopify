@@ -1,63 +1,124 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Menu, Dropdown } from "semantic-ui-react";
 import { Slider } from "infinite-react-carousel";
 import styled from "styled-components";
+import Products from "../Home/Products";
+import Footer from "../Home/Footer";
 import dog1 from "../images/shepherd1.jpg";
 import dog2 from "../images/dog2.jpg";
 import cat2 from "../images/cat2.jpg";
 import monkey1 from "../images/monkey1.jpg";
+import {
+  dogtype,
+  cattype,
+  birdtype,
+  rabbittype,
+  monkeytype
+} from "../arrayOfPets";
+import { DogContext } from "../context/dog-context/DogProvider";
 
 const FrontPage = () => {
+  const { handlePets, handleBreed } = useContext(DogContext);
+  const users = JSON.parse(localStorage.getItem("users"));
+
   const settings = {
-    autoplay: true,
-    autoplaySpeed: 2500
+    autoplay: true
+    // autoplaySpeed: 3000
   };
   return (
     <div>
+      <h3 style={{paddingLeft: '10%', color: 'teal', paddingBottom: '1rem'}}>Welcome {users.name}</h3>
       <Parent>
         <div className='child-one'>
-          {/* <Category /> */}
           <Menu vertical style={{ width: "90%" }}>
-            <Menu.Item>
-              <h1>Categories</h1>
+            <Menu.Item style={{ cursor: "pointer" }}>
+              <h4
+                onClick={() => {
+                  handlePets("");
+                  handleBreed("");
+                }}
+              >
+                All Categories
+              </h4>
             </Menu.Item>
-            <Dropdown style={{ fontSize: "1.2em" }} item text='Dogs'>
+            <Dropdown
+              onClick={() => handlePets("dogs")}
+              style={{ fontSize: "1.2em" }}
+              item
+              text='Dogs'
+            >
               <Dropdown.Menu style={{ width: "130%" }}>
-                <Dropdown.Item>German Shepherd</Dropdown.Item>
-                <Dropdown.Item>Bulldog</Dropdown.Item>
-                <Dropdown.Item>Mountain Dog</Dropdown.Item>
-                <Dropdown.Item>Terrier</Dropdown.Item>
-                <Dropdown.Item>Chihuahua</Dropdown.Item>
-                <Dropdown.Item>Pitbull</Dropdown.Item>
+                {dogtype.map(dog => (
+                  <Dropdown.Item key={dog}>
+                    <span onClick={() => handleBreed({ name: dog })}>
+                      {dog}
+                    </span>
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown style={{ fontSize: "1.2em" }} item text='Cats'>
+            <Dropdown
+              onClick={() => handlePets("cats")}
+              style={{ fontSize: "1.2em" }}
+              item
+              text='Cats'
+            >
               <Dropdown.Menu style={{ width: "130%" }}>
-                <Dropdown.Item>American Bobtail Cat</Dropdown.Item>
-                <Dropdown.Item>American Shorthair Cat</Dropdown.Item>
-                <Dropdown.Item>Birman Cat</Dropdown.Item>
-                <Dropdown.Item>Manx Cat</Dropdown.Item>
+                {cattype.map(cat => (
+                  <Dropdown.Item key={cat}>
+                    <span onClick={() => handleBreed({ name: cat })}>
+                      {cat}
+                    </span>
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown style={{ fontSize: "1.2em" }} item text='Birds'>
+            <Dropdown
+              onClick={() => handlePets("birds")}
+              style={{ fontSize: "1.2em" }}
+              item
+              text='Birds'
+            >
               <Dropdown.Menu style={{ width: "130%" }}>
-                <Dropdown.Item>English</Dropdown.Item>
-                <Dropdown.Item>Pidgin</Dropdown.Item>
-                <Dropdown.Item>Spanish</Dropdown.Item>
+                {birdtype.map(bird => (
+                  <Dropdown.Item key={bird}>
+                    <span onClick={() => handleBreed({ name: bird })}>
+                      {bird}
+                    </span>
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown style={{ fontSize: "1.2em" }} item text='Rabbits'>
+            <Dropdown
+              onClick={() => handlePets("rabbits")}
+              style={{ fontSize: "1.2em" }}
+              item
+              text='Rabbits'
+            >
               <Dropdown.Menu style={{ width: "130%" }}>
-                <Dropdown.Item>English</Dropdown.Item>
-                <Dropdown.Item>Pidgin</Dropdown.Item>
-                <Dropdown.Item>Spanish</Dropdown.Item>
+                {rabbittype.map(rabbit => (
+                  <Dropdown.Item key={rabbit}>
+                    <span onClick={() => handleBreed({ name: rabbit })}>
+                      {rabbit}
+                    </span>
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown style={{ fontSize: "1.2em" }} item text='Monkeys'>
+            <Dropdown
+              onClick={() => handlePets("monkeys")}
+              style={{ fontSize: "1.2em" }}
+              item
+              text='Monkeys'
+            >
               <Dropdown.Menu style={{ width: "130%" }}>
-                <Dropdown.Item>English</Dropdown.Item>
-                <Dropdown.Item>Pidgin</Dropdown.Item>
-                <Dropdown.Item>Spanish</Dropdown.Item>
+                {monkeytype.map(monkey => (
+                  <Dropdown.Item key={monkey}>
+                    <span onClick={() => handleBreed({ name: monkey })}>
+                      {monkey}
+                    </span>
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
           </Menu>
@@ -72,23 +133,32 @@ const FrontPage = () => {
               </Button>
             </div>
           </div>
-          <Slider style={{ position: "relative", height: '100%' }} {...settings}>
+          <Slider
+            style={{
+              position: "relative",
+              padding: "0",
+              margin: "0"
+            }}
+            {...settings}
+          >
             <div>
-              <img src={dog1} alt={dog1} width='100%' height='509vh' />
+              <img src={dog1} alt={dog1} />
             </div>
             <div>
-              <img src={dog2} alt={dog2} width='100%' height='509vh' />
+              <img src={dog2} alt={dog2} />
             </div>
             <div>
-              <img src={cat2} alt={cat2} width='100%' height='509vh' />
+              <img src={cat2} alt={cat2} />
             </div>
             <div>
-              <img src={monkey1} alt={monkey1} width='100%' height='509vh' />
+              <img src={monkey1} alt={monkey1} />
             </div>
           </Slider>
         </div>
         {/* </div> */}
       </Parent>
+      <Products />
+      <Footer />
     </div>
   );
 };
@@ -119,6 +189,11 @@ const Parent = styled.div`
   .child-two {
     color: orangered;
     position: relative;
+    height: 70vh;
+    img {
+      width: 100%;
+      height: 70vh;
+    }
     .overlay {
       display: flex;
       flex-direction: column;

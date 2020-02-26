@@ -9,7 +9,7 @@ import { DogContext } from "../../context/dog-context/DogProvider";
 import { Image, Cart, Price } from "../../StyleComponent";
 import moment from "moment";
 
-const CatProducts = ({ pet }) => {
+const RabbitProduct = ({ pet }) => {
   const { addToCart, getCart } = useContext(DogContext);
   const { id } = JSON.parse(localStorage.getItem("users"));
   const handleCart = (pet) => {
@@ -23,7 +23,7 @@ const CatProducts = ({ pet }) => {
   );
 };
 
-export default CatProducts;
+export default RabbitProduct;
 
 const DogCard = ({ pet, handleCart }) => (
   <Card style={{ width: "300px" }}>
