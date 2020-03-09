@@ -6,6 +6,7 @@ import { RatingExampleStar } from "../UiComponets/UiComponents";
 import { SingleParent, Select } from "../StyleComponent";
 import Products from "./Products";
 import FilteredComponent from "./SingleComponents/FilteredComponent";
+import Footer from "./Footer";
 
 const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -18,20 +19,25 @@ const SinglePet = () => {
     dogs,
     handlePets
   } = useContext(DogContext);
+  const [quan, setQuan] = useState("")
+  const handleSelect = ({target: {value}}) => {
+    setQuan(value)
+  }
   const handleCart = pet => {
-    addToCart(pet);
+    const pet_body = {
+      ...pet,
+      quantity: quan
+    }
+    addToCart(pet_body);
     getCart();
   };
   const { id } = useParams();
-  const [count, setCount] = useState(0);
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
   useEffect(() => {
     get_single_pet(id);
     // eslint-disable-next-line
   }, [dogs]);
-  console.log(dogs);
+
+  console.log(view_pet)
   return (
     <>
       <SingleParent>
@@ -71,7 +77,7 @@ const SinglePet = () => {
             <div>
               <h2>Quantity</h2>
               {/* <Quantity handleIncrement={handleIncrement} count={count} /> */}
-              <Select>
+              <Select onChange={handleSelect}>
                 <option selected='false'> Select unit</option>
                 {array.map(a => (
                   <option key={a} value={a}>
@@ -112,6 +118,8 @@ const SinglePet = () => {
         </div>
       </SingleParent>
       {!dogs ? <FilteredComponent dogs={dogs} /> : <Products />}
+
+      <Footer />
     </>
   );
 };

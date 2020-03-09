@@ -1,14 +1,16 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import reducer from "./userReducer";
-import { REGISTER_USER, LOGIN_USER, USER_PROFILE } from "./user-types";
+import { REGISTER_USER, LOGIN_USER, REGISTER_ERROR, LOGIN_ERROR } from "./user-types";
 import { ERRORS } from "../dog-context/types";
 import decode from "jwt-decode";
 
 const initialState = {
   registerUser: [],
   loginUser: [],
-  profile: []
+  profile: [],
+  register_error: {},
+  login_error: {},
 };
 
 export const UserContext = createContext();
@@ -19,59 +21,39 @@ export const UserProvider = ({ children }) => {
   const user_url = `http://localhost:3001/users/profile`;
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleRegister = async body => {
+  const handleRegister = async (body, history) => {
     try {
       const response = await axios.post(register_url, body);
       localStorage.setItem("x-auth", response.data.token);
       localStorage.setItem("users", JSON.stringify(response.data.data));
+      history.push('/')
       dispatch({ type: REGISTER_USER, payload: response.data.data });
     } catch (error) {
-      dispatch({ type: ERRORS, payload: error.message });
+      dispatch({ type: REGISTER_ERROR, payload: error.response.data.error });
     }
   };
 
-  const handleLogin = async body => {
+  const handleLogin = async (body, history) => {
     try {
       const response = await axios.post(login_url, body);
       localStorage.setItem("x-auth", response.data.token);
       localStorage.setItem("users", JSON.stringify(response.data.data));
+      console.log(response)
+      history.push('/')
       dispatch({ type: LOGIN_USER, payload: response.data.data });
     } catch (error) {
-      dispatch({ type: ERRORS, payload: error.message });
+      dispatch({type: LOGIN_ERROR, payload: error.response.data.error });
     }
   };
-
-  // const getUsers = async () => {
-  //   const token = localStorage.getItem("x-auth");
-  //   const user = decode(token)
-  //   console.log(user)
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:3001/users/profile/${user.id}`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json"
-  //         }
-  //       }
-  //     );
-  //     console.log(response.data.profile);
-  //     dispatch({ type: USER_PROFILE, payload: response.data.profile });
-  //   } catch (error) {
-  //     dispatch({ type: ERRORS, payload: error.message });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUsers();
-  //   // eslint-disable-next-line
-  // }, []);
 
   return (
     <UserContext.Provider
       value={{
         handleRegister,
         handleLogin,
-        users: state.registerUser
+        users: state.registerUser,
+        register_error: state.register_error,
+        login_error: state.login_error,
       }}
     >
       {children}

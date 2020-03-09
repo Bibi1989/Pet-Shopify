@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import DogProducts from "./SingleComponents/DogProducts";
 import CatProducts from "./SingleComponents/CatProducts";
 import { DogContext } from "../context/dog-context/DogProvider";
@@ -11,8 +11,12 @@ const Products = () => {
   let { pets, dogs, breeds, name, breed, search_pets } = useContext(
     DogContext
   );
+  useEffect(() => {
+    pets = pets
+  }, [pets, search_pets])
   // let animals = pets
   pets = search_pets ? pets : search_pets;
+  console.log(search_pets)
   return (
     <>
       {name || breed ? (

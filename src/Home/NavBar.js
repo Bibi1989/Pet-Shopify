@@ -14,8 +14,9 @@ import { useHistory, Link } from "react-router-dom";
 import decode from "jwt-decode";
 
 export const NavBar = () => {
-  const { carts, getCart, onSearch } = useContext(DogContext);
+  const { getCart, onSearch } = useContext(DogContext);
   const token = localStorage.getItem("x-auth");
+  const carts = JSON.parse(localStorage.getItem("orders"));
   const history = useHistory();
   useEffect(() => {
     getCart();
@@ -74,12 +75,20 @@ export const NavBar = () => {
           <Button icon>
             <Icon name='cart' size='big' color='teal' />{" "}
             <sup style={{ fontSize: "1rem", color: "orangered" }}>
-              {carts.length}
+              {carts === null ? 0 : carts.length}
             </sup>
           </Button>
         </Link>
         {token ? (
           <>
+            {user.isSeller &&
+              <Button style={{ margin: "0 10px" }} icon>
+                <Link to="/seller">
+                <Icon name='plus' size='large' color='teal' />
+                <span style={{ padding: "5px 5px 0 5px" }}>Sell Pet</span>
+                </Link>
+              </Button>
+            }
             <Button onClick={handleLogout} style={{ margin: "0 10px" }} icon>
               <Icon name='user' size='large' color='teal' />
               <span style={{ padding: "0 5px" }}>Logout</span>
@@ -103,12 +112,16 @@ export const NavBar = () => {
         ) : (
           <>
             <Button style={{ margin: "0 10px" }} icon>
+              <Link to="/login">
               <Icon name='user' size='large' color='teal' />
               <span style={{ padding: "0 5px" }}>Login</span>
+              </Link>
             </Button>
             <Button icon>
+              <Link to="/register">
               <Icon name='users' size='large' color='teal' />
               <span style={{ padding: "0 5px" }}>Register</span>
+              </Link>
             </Button>
           </>
         )}

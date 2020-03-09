@@ -19,6 +19,9 @@ import {
   animals
 } from "../arrayOfPets";
 
+const base_url = process.env.REACT_APP_BASE_URI
+const upload_preset = process.env.REACT_APP_UPLOAD_PRESET
+
 const AddPet = () => {
   const [name, setPet] = useState("");
   const [breed, setBreed] = useState("");
@@ -26,45 +29,58 @@ const AddPet = () => {
   const [price, setPrice] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
-  const [file, setFile] = useState({});
+  const [phone, setPhone] = useState("");
+  const [stock, setStock] = useState("");
+  const [file, setFile] = useState("");
 
+  
   // function checkFullName(name) {
-  //   let splittedName = name.split(" ");
+    //   let splittedName = name.split(" ");
   //   let validateName = splittedName[1];
   //   return validateName;
   // }
-
+  console.log(file)
+  
   const handlePets = ({ target: { value } }) => setPet(value);
   const handleTypes = ({ target: { value } }) => setBreed(value);
   const handleDescription = ({ target: { value } }) => setDescription(value);
   const handlePrice = ({ target: { value } }) => setPrice(value);
   const handleAge = ({ target: { value } }) => setAge(value);
-  const handleFile = e => setFile(e.target.files[0]);
   const handleLocation = e => setLocation(e.target.value);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("name", name);
-    data.append("breed", breed);
-    data.append("description", description);
-    data.append("price", price);
-    data.append("age", age);
-    data.append("location", location);
-    data.append("image", file);
-    axios
-      .post(`http://localhost:3001/animals`, data, {
+  const handlePhone = e => setPhone(e.target.value);
+  const handleStock = e => setStock(e.target.value);
+  
+  const handleFile = e => {
+      const formData = new FormData()
+      formData.append('file', e.target.files[0])
+      formData.append('upload_preset', upload_preset)
+      axios.post(base_url, formData).then(image => setFile(image.data.secure_url)).catch(err => console.log(err))
+    };
+    
+    const handleSubmit = e => {
+      e.preventDefault();
+      const data = {
+        name,
+        breed,
+        description,
+        price,
+        age,
+        location,
+        image_url: file,
+        phone,
+      }
+    const token = localStorage.getItem('x-auth')
+    console.log({token, data})
+    axios.post(`https://pet-shopify.herokuapp.com/animals`, data, {
         headers: {
-          "content-type": "multipart/form-data",
-          "x-auth":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNTFhMWJhZjUzYmRiMzdhYzdkMTQ2OCIsInBob25lIjoiMTIzNDU2Nzg3ODkiLCJlbWFpbCI6ImJiQGdtYWlsLmNvbSIsIm5hbWUiOiJiYiIsImlhdCI6MTU4MjQwODEyMn0.Qkn5kiU9h22znDv1JvylGT07jM0WoiQ0TGvqH9x99Yk"
+          "Content-Type": "application/json",
+          "x-auth": `${token}`
         }
-      })
-      .then(response => console.log(response));
+      }).then(response => console.log(response)).catch(err => console.log(err));
   };
 
   return (
-    <Container style={{ margin: "2rem 0" }}>
+    <Container style={{ margin: "2rem 2%" }}>
       <h1 style={{ fontSize: "3rem" }}>Sell Your Pet</h1>
       <hr style={{ marginBottom: "2rem" }} />
       <Form onSubmit={handleSubmit}>
@@ -183,9 +199,38 @@ const AddPet = () => {
           onChange={handlePrice}
           icon='money'
           iconPosition='left'
-          placeholder='Search users...'
+          placeholder='Price...'
         />
 
+        <br />
+        <Label
+          content='Phone Number'
+          style={{ padding: "10px", margin: "1% 0", fontSize: "1.3rem" }}
+        />
+        <br />
+        <Input
+          name='Phone Number'
+          onChange={handlePhone}
+          icon='phone'
+          iconPosition='left'
+          placeholder='Phone Number...'
+        />
+
+        <br />
+        <Label
+          content='Numbers of pets to sell'
+          style={{ padding: "10px", margin: "1% 0", fontSize: "1.3rem" }}
+        />
+        <br />
+        <Input
+          name='Stocks'
+          onChange={handleStock}
+          icon='pet'
+          iconPosition='left'
+          placeholder='Stock Availability...'
+        />
+
+        <br />
         <hr style={{ margin: "1rem 0" }} />
         <Label
           content='Pet Description'
@@ -210,16 +255,16 @@ const AddPet = () => {
           type='number'
           icon='amilia'
           iconPosition='left'
-          placeholder='Search users...'
+          placeholder='Age of pet...'
         />
         <hr style={{ margin: "1rem 0" }} />
         <Input
           type='file'
-          name='image'
+          name='file'
           onChange={handleFile}
           loading
           icon='user'
-          placeholder='Search...'
+          placeholder='Upload image...'
         />
 
         <Button type='submit'>Submit</Button>

@@ -22,9 +22,9 @@ function App() {
             <UserProvider>
               <Route exact path='/register' component={Register}/>
               <Route exact path='/login' component={Login}/>
-              <PrivateRoute exact path='/' component={FrontPage}/>
-              <PrivateRoute exact path='/view/:id' component={SinglePet} />
-              <PrivateRoute exact path='/cart' component={CartComponent} />
+              <Route exact path='/' component={FrontPage}/>
+              <Route exact path='/view/:id' component={SinglePet} />
+              <Route exact path='/cart' component={CartComponent} />
               <Route exact path='/seller' component={AddPet}/>
             </UserProvider>
           </Switch>

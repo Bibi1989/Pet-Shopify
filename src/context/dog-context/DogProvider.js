@@ -24,12 +24,12 @@ const initialState = {
   search_pets: [],
   delete_msg: ""
 };
-// const array = JSON.parse(localStorage.getItem("order")) || [];
+const arrayOfOrders = JSON.parse(localStorage.getItem("orders")) || [];
 
 export const DogContext = createContext();
 
 export const DogProvider = ({ children }) => {
-  const url = `http://localhost:3001/animals`;
+  const url = `https://pet-shopify.herokuapp.com/animals`;
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [name, setName] = useState("");
@@ -47,7 +47,7 @@ export const DogProvider = ({ children }) => {
 
   const fetchSinglePet = async id => {
     try {
-      const response = await axios.get(`http://localhost:3001/animals/${id}`);
+      const response = await axios.get(`https://pet-shopify.herokuapp.com/animals/${id}`);
       dispatch({ type: SINGLE_PET, payload: response.data.data });
     } catch (error) {
       dispatch({ type: ERRORS, payload: error.message });
@@ -68,7 +68,7 @@ export const DogProvider = ({ children }) => {
 
   const onSearch = value => {
     const filtered = state.animals.filter(
-      animal => animal.breed.toLowerCase().startsWith(value.toLowerCase()) > 0
+      animal => animal.breed.toLowerCase().includes(value.toLowerCase()) > 0
     );
     dispatch({ type: SEARCH, payload: filtered });
   };
@@ -76,17 +76,30 @@ export const DogProvider = ({ children }) => {
   const addToCart = async (body, id) => {
     try {
       const data = {
+        id: body._id,
         name: body.name,
         breed: body.breed,
         image_url: body.image_url,
         description: body.description,
         price: body.price,
         category_id: body._id,
-        user_id: id
+        user_id: id,
+        quantity: body.quantity,
       };
+      let check = arrayOfOrders.filter(order => order.id === body._id)
       const token = localStorage.getItem("x-auth");
-      console.log(body);
-      const response = await axios.post(`http://localhost:3001/orders`, data, {
+      if(check.length > 0) {
+        return arrayOfOrders.map(order => {
+          if(order.id === data.id) {
+            order.quantity = parseInt(data.quantity) + parseInt(order.quantity)
+            return localStorage.setItem("orders", JSON.stringify(arrayOfOrders))
+            
+          }
+        })
+      }
+      arrayOfOrders.push(data)
+      localStorage.setItem("orders", JSON.stringify(arrayOfOrders))
+      const response = await axios.post(`https://pet-shopify.herokuapp.com/orders`, data, {
         headers: {
           "content-type": "application/json",
           "x-auth": `${token}`
@@ -102,7 +115,7 @@ export const DogProvider = ({ children }) => {
     try {
       id = id !== undefined ? id : "";
       const token = localStorage.getItem("x-auth");
-      const response = await axios.get(`http://localhost:3001/orders`, {
+      const response = await axios.get(`https://pet-shopify.herokuapp.com/orders`, {
         headers: {
           "content-type": "application/json",
           "x-auth": token
@@ -122,7 +135,7 @@ export const DogProvider = ({ children }) => {
   const deleteCart = async id => {
     try {
       const token = localStorage.getItem("x-auth");
-      await axios.delete(`http://localhost:3001/orders/${id}`, {
+      await axios.delete(`https://pet-shopify.herokuapp.com/orders/${id}`, {
         headers: {
           "content-type": "application/json",
           "x-auth": token

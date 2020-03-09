@@ -1,5 +1,5 @@
 //
-import { REGISTER_USER, LOGIN_USER, USER_PROFILE } from "./user-types";
+import { REGISTER_USER, LOGIN_USER, USER_PROFILE, REGISTER_ERROR, LOGIN_ERROR } from "./user-types";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -17,6 +17,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         animals: action.payload
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        login_error: action.payload
+      };
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        register_error: action.payload
       };
 
     default:

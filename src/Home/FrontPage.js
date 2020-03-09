@@ -27,7 +27,7 @@ const FrontPage = () => {
   };
   return (
     <div>
-      <h3 style={{paddingLeft: '10%', color: 'teal', paddingBottom: '1rem'}}>Welcome {users.name}</h3>
+      <h3 style={{paddingLeft: '10%', color: 'teal', paddingBottom: '1rem'}}>Welcome {users ? users.name : null}</h3>
       <Parent>
         <div className='child-one'>
           <Menu vertical style={{ width: "90%" }}>
@@ -214,36 +214,5 @@ const Parent = styled.div`
     }
   }
 `;
-
-//  const Category = () => {
-//    return (
-//      <div style={{ width: "100%" }}>
-//       <Menu vertical style={{ width: "90%" }}>
-//         <Menu.Item href='//google.com' target='_blank'>
-//           <h1>Categories</h1>
-//         </Menu.Item>
-//         <Menu.Item link>
-//           <Dropdown style={{ fontSize: "1.2em" }} item text={state.name}>
-//             <Dropdown.Menu>
-//               <Dropdown.Item onClick={() => handleClick("English")}>
-//                 English
-//               </Dropdown.Item>
-//               <Dropdown.Item onClick={() => handleClick("Pidgin")}>
-//                 Pidgin
-//               </Dropdown.Item>
-//               <Dropdown.Item onClick={() => handleClick("Spanish")}>
-//                 Spanish
-//               </Dropdown.Item>
-//             </Dropdown.Menu>
-//           </Dropdown>
-//         </Menu.Item>
-//         <Menu.Item link>Cats</Menu.Item>
-//         <Menu.Item link>Birds</Menu.Item>
-//         <Menu.Item link>Rabbits</Menu.Item>
-//         <Menu.Item link>Monkeys</Menu.Item>
-//       </Menu>
-//      </div>
-//    );
-//  };
 
 export default FrontPage;
